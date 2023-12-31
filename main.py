@@ -3,6 +3,7 @@ import network
 import urequests
 from utime import sleep
 hour, minute, second = 23, 30, 0
+hostip = "10.42.0.1"
 
 # Create a station interface and set your credentials
 station = network.WLAN(network.STA_IF)
@@ -16,9 +17,9 @@ print('Network config:', station.ifconfig())
 try:
     while True:
         if station.isconnected():
-            hour = int(urequests.get('http://10.42.0.1:5000/time/hour').text)
-            minute = int(urequests.get('http://10.42.0.1:5000/time/minute').text)
-            second = int(urequests.get('http://10.42.0.1:5000/time/second').text)
+            hour = int(urequests.get('http://{}:5000/time/hour'.format(hostip)).text)
+            minute = int(urequests.get('http://{}:5000/time/minute'.format(hostip)).text)
+            second = int(urequests.get('http://{}:5000/time/second'.format(hostip)).text)
         else:
             second += 1
             if second == 60:
